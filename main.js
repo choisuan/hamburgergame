@@ -8,6 +8,7 @@ let gameover = false;
 let chanceArea = document.getElementById("chance-area");
 let history = [];
 let answerArea = document.getElementById("answer-area")
+let historyArea = document.getElementById("history-area")
 
 playButton.addEventListener("click", play);
 resetButton.addEventListener("click", reset);
@@ -22,8 +23,6 @@ function pickRandomNum() {
 }
 
 pickRandomNum();
-
-
 
 function play() {
   let userValue = userInput.value;
@@ -52,7 +51,7 @@ function play() {
   }
 
   history.push(userValue);
-  console.log(history);
+  updateHistoryArea();
 
   if (chances < 1) {
     gameover = true;
@@ -63,8 +62,26 @@ function play() {
   }
 }
 
+function updateHistoryArea() {
+  let historyNums = historyArea.querySelectorAll(".history-num"); // 선택한 값 모두를 반환
+    historyNums.forEach((numDiv, index) => {
+        if (index < history.length) {
+            numDiv.textContent = history[index];
+        } else {
+            numDiv.textContent = "";
+        }
+    });
+  
+}
+
 function reset() {
   userInput.value = "";
   pickRandomNum();
   resultArea.textContent = "결과값이 여기 나옵니다";
+  gameover = false;
+  playButton.disabled = false;
+  chances = 3;
+  chanceArea.textContent = `남은 기회:${chances}번`;
+  history=[];
+  updateHistoryArea();
 }
