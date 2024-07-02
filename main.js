@@ -7,6 +7,7 @@ let chances = 3;
 let gameover = false;
 let chanceArea = document.getElementById("chance-area");
 let history = [];
+let answerArea = document.getElementById("answer-area")
 
 playButton.addEventListener("click", play);
 resetButton.addEventListener("click", reset);
@@ -17,9 +18,12 @@ userInput.addEventListener("focus", function () {
 function pickRandomNum() {
   computerNum = Math.floor(Math.random() * 100) + 1; // Math.random은 0부터 1사이 숫자를 랜덤으로 추출
   console.log("정답", computerNum);
+  answerArea.textContent = `정답:${computerNum}`
 }
 
 pickRandomNum();
+
+
 
 function play() {
   let userValue = userInput.value;
